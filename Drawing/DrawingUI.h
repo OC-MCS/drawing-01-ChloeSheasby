@@ -5,17 +5,19 @@ using namespace std;
 using namespace sf;
 #include "ShapeMgr.h"
 
-// finish this code; add functions, data as needed
-const float WIDTH = 500.0;
-const float LENGTH = 300.0;
+const float WIDTH = 550.0;		// holds the width of the canvas
+const float LENGTH = 370.0;		// holds the length of the canvas
 
 class DrawingUI
 {
 private:
-	RectangleShape drawingCanvas;
+	RectangleShape drawingCanvas;	// holds the data for the canvas that the user draws in
 
 public:
-	DrawingUI(Vector2f p)	// creates the box in which the user can draw
+	//============================================================
+	// this is a constructor that initializes the drawing canvas
+	//============================================================
+	DrawingUI(Vector2f p)	
 	{
 		drawingCanvas.setPosition(p);
 		drawingCanvas.setOutlineColor(Color::White);
@@ -24,17 +26,29 @@ public:
 		drawingCanvas.setFillColor(Color::White);
 	}
 
+	//==============================================================================
+	// this function draws the shapes by taking information from the vector of 
+	// shapes and drawing each one
+	// a pointer is made to hold the information from the vector of shapes
+	// this also draws the drawing canvas
+	//==============================================================================
 	void draw(RenderWindow& win, ShapeMgr *mgr)
 	{
-		vector<DrawingShape*> *shapes;
-		shapes = mgr->returnVector();
-		win.draw(drawingCanvas);
+		vector<DrawingShape*> *shapes;	// creates a pointer to the vector that holds the shape
+		shapes = mgr->returnVector();	// initializes the pointer to the vector with the vector that is returned from shapeMgr
+		win.draw(drawingCanvas);	// draws the canvas
 		for (int i = 0; i < shapes->size(); i++)
 		{
-			(*shapes)[i]->draw(win);
+			(*shapes)[i]->draw(win);	// draws each shape in the vector
 		}
 	}
 	
+	//================================================================================
+	// this function makes sure that the mouse is inside the drawing canvas and also
+	// takes into account the size of the shapes so that they do not go over on the
+	// right or bottom sides
+	// it also returns a boolean depending on if the mouse is inside the canvas or not
+	//================================================================================
 	bool isMouseInCanvas(Vector2f mousePos)
 	{
 		bool isInCanvas;
@@ -45,6 +59,5 @@ public:
 			isInCanvas = false;
 		return isInCanvas; 
 	}
-
 };
 

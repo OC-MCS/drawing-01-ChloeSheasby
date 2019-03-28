@@ -14,10 +14,6 @@ using namespace std;
 #include "DrawingUI.h"
 using namespace sf;
 
-// Finish this code. Other than where it has comments telling you to 
-// add code, you shouldn't need to add any logic to main to satisfy
-// the requirements of this programming assignment
-
 int main()
 {
 	const int WINDOW_WIDTH = 800;
@@ -29,14 +25,19 @@ int main()
 	SettingsMgr settingsMgr(Color::Blue, ShapeEnum::CIRCLE);
 	SettingsUI  settingsUI(&settingsMgr); 
 	ShapeMgr    shapeMgr;
-	DrawingUI   drawingUI(Vector2f(220, 40));
+	DrawingUI   drawingUI(Vector2f(220, 35));
 	
 	// ********* Add code here to make the managers read from shapes file (if the file exists)
 	fstream binFile;
 	binFile.open("shapes.bin", ios::in | ios::binary);
-	settingsMgr.load(binFile);
-	shapeMgr.load(binFile);
-	binFile.close();
+	if (binFile)		// checks that the file opened
+	{
+		settingsMgr.load(binFile);		// reads the previous shapes from the file
+		shapeMgr.load(binFile);
+		binFile.close();
+	}
+	else
+		cout << "Error! The file could not be opened." << endl;
 
 	while (window.isOpen()) 
 	{
@@ -48,7 +49,7 @@ int main()
 				window.close();
 				// ****** Add code here to write all data to shapes file
 				binFile.open("shapes.bin", ios::out | ios::binary);
-				settingsMgr.save(binFile);
+				settingsMgr.save(binFile);	// writes the shapes to the file
 				shapeMgr.save(binFile);
 				binFile.close();
 			}
