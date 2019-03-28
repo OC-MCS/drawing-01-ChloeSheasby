@@ -1,5 +1,8 @@
 //================================================
-// YOUR NAME GOES HERE <-----------------  
+// Chloe Sheasby
+// Programming Assignment #6
+// Description: Drawing
+// Due Date: Friday, March 29th
 //================================================
 #include <iostream>
 #include <fstream>
@@ -26,9 +29,14 @@ int main()
 	SettingsMgr settingsMgr(Color::Blue, ShapeEnum::CIRCLE);
 	SettingsUI  settingsUI(&settingsMgr); 
 	ShapeMgr    shapeMgr;
-	DrawingUI   drawingUI(Vector2f(200, 50));
+	DrawingUI   drawingUI(Vector2f(220, 40));
 	
 	// ********* Add code here to make the managers read from shapes file (if the file exists)
+	fstream binFile;
+	binFile.open("shapes.bin", ios::in | ios::binary);
+	settingsMgr.load(binFile);
+	shapeMgr.load(binFile);
+	binFile.close();
 
 	while (window.isOpen()) 
 	{
@@ -39,6 +47,10 @@ int main()
 			{
 				window.close();
 				// ****** Add code here to write all data to shapes file
+				binFile.open("shapes.bin", ios::out | ios::binary);
+				settingsMgr.save(binFile);
+				shapeMgr.save(binFile);
+				binFile.close();
 			}
 			else if (event.type == Event::MouseButtonReleased)
 			{
@@ -73,6 +85,7 @@ int main()
 
 		window.display();
 	} // end body of animation loop
+
 
 	return 0;
 }

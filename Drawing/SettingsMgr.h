@@ -11,21 +11,42 @@ enum ShapeEnum { CIRCLE, SQUARE };
 class SettingsMgr
 {
 private:
-	
+	Color color;
+	ShapeEnum shape;
 public:
 	SettingsMgr(Color startingColor, ShapeEnum startingShape )
 	{
+		color = startingColor;
+		shape = startingShape;
 	}
-
 	Color getCurColor()
 	{
-		return Color::Blue; // just to make it compile 
+		return color; 
 	}
-
-
 	ShapeEnum getCurShape()
 	{
-		return ShapeEnum::CIRCLE; // just to make it compile;
+		return shape; 
 	}
-
+	void setCurColor(Color startingColor) 
+	{
+		color = startingColor;
+	}
+	void setCurShape(ShapeEnum startingShape)
+	{
+		shape = startingShape;
+	}
+	void load(fstream& binFile)
+	{
+		unsigned int colorNumber;
+		binFile.read(reinterpret_cast<char*>(&colorNumber), sizeof(colorNumber));
+		Color aColor(colorNumber);	
+		color = aColor;
+		binFile.read(reinterpret_cast<char*>(&shape), sizeof(shape));
+	}
+	void save(fstream& binFile)
+	{
+		unsigned int colorNumber = color.toInteger();
+		binFile.write(reinterpret_cast<char*>(&colorNumber), sizeof(colorNumber));
+		binFile.write(reinterpret_cast<char*>(&shape), sizeof(shape));
+	}
 };
