@@ -53,16 +53,16 @@ public:
 		shape = startingShape;
 	}
 
-	//==============================================================================
-	// this function takes the color and shape from the file, and turns the color 
+	//===============================================================================
+	// this function takes the color and shape from the file, and turns the int color 
 	// back into a Color color and places those in the settings
-	//==============================================================================
+	//===============================================================================
 	void load(fstream& binFile)
 	{
 		unsigned int colorNumber;
 		binFile.read(reinterpret_cast<char*>(&colorNumber), sizeof(colorNumber));
 		Color aColor(colorNumber);	// changes the int back into a color
-		color = aColor;
+		color = aColor;				// initializes the color with the color-turned-int
 		binFile.read(reinterpret_cast<char*>(&shape), sizeof(shape));
 	}
 

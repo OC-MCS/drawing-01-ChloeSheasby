@@ -1,9 +1,9 @@
-//================================================
+//==============================
 // Chloe Sheasby
 // Programming Assignment #6
 // Description: Drawing
 // Due Date: Friday, March 29th
-//================================================
+//==============================
 #include <iostream>
 #include <fstream>
 using namespace std;
@@ -29,15 +29,13 @@ int main()
 	
 	// ********* Add code here to make the managers read from shapes file (if the file exists)
 	fstream binFile;
-	binFile.open("shapes.bin", ios::in | ios::binary);
+	binFile.open("shapes.bin", ios::in | ios::binary);	// opens the binary file for input
 	if (binFile)		// checks that the file opened
 	{
-		settingsMgr.load(binFile);		// reads the previous shapes from the file
-		shapeMgr.load(binFile);
+		settingsMgr.load(binFile);		// reads the previous settings from the file
+		shapeMgr.load(binFile);			// reads the previously drawn shapes from the file
 		binFile.close();
 	}
-	else
-		cout << "Error! The file could not be opened." << endl;
 
 	while (window.isOpen()) 
 	{
@@ -48,9 +46,9 @@ int main()
 			{
 				window.close();
 				// ****** Add code here to write all data to shapes file
-				binFile.open("shapes.bin", ios::out | ios::binary);
-				settingsMgr.save(binFile);	// writes the shapes to the file
-				shapeMgr.save(binFile);
+				binFile.open("shapes.bin", ios::out | ios::binary);	// opens the binary file for output
+				settingsMgr.save(binFile);	// writes the settings to the file
+				shapeMgr.save(binFile);		// writes the drawn shapes to the file
 				binFile.close();
 			}
 			else if (event.type == Event::MouseButtonReleased)

@@ -10,7 +10,8 @@ using namespace sf;
 class ShapeMgr
 {
 private:
-	vector<DrawingShape*> shapes;	// holds each individual shape when they are created
+	vector<DrawingShape*> shapes;	// this is a vector of pointers to DrawingShape (it accesses the DrawingShape class)
+									// holds each individual shape when they are created
 public:
 	//==============================================================================
 	// this is here just so that there is a syntax error, nothing needs to be placed
@@ -28,17 +29,17 @@ public:
 	//==============================================================================
 	void addShape(Vector2f pos, ShapeEnum whichShape, Color color)
 	{
-		if (whichShape == SQUARE)
-		{
-			Square *sqr;	// creates a pointer to a square so that new memory can be allocated
-			sqr = new Square(pos, color);
-			shapes.push_back(sqr);	// pushes the new square into the vector of shapes
-		}
-		else if (whichShape == CIRCLE)
+		if (whichShape == CIRCLE)
 		{
 			Circle *circ;	// creates a pointer to a circle so that new memory can be allocated
 			circ = new Circle(pos, color);	
 			shapes.push_back(circ);		// pushes the new circle into the vector of shapes
+		}
+		else if (whichShape == SQUARE)
+		{
+			Square *sqr;	// creates a pointer to a square so that new memory can be allocated
+			sqr = new Square(pos, color);
+			shapes.push_back(sqr);	// pushes the new square into the vector of shapes
 		}
 	}
 
